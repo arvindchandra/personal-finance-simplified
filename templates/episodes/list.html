@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Episodes — {{ config.extra.show_name }}{% endblock title %}
+{% block description %}Recent Personal Finance Simplified episodes on budgeting, saving, investing, insurance, and making confident money decisions.{% endblock description %}
+
+{% block content %}
+<section class="archive-hero section-wrap">
+  <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Personal Finance Simplified</p>
+  <h1>Money, made <span>clear.</span></h1>
+  <p>Recent episodes with practical explanations for the financial decisions that matter in everyday life.</p>
+  <div class="creator-credit archive-creator">
+    <span class="creator-avatar" aria-hidden="true">I</span>
+    <span><small>Created &amp; hosted by</small><strong>{{ config.extra.creator_name }}</strong></span>
+  </div>
+</section>
+<section class="episode-archive section-wrap" aria-label="Podcast episodes">
+  {% for episode in section.pages %}
+  <article class="archive-card">
+    <a class="episode-art episode-art-{{ episode.extra.accent | default(value='coral') }}" href="{{ episode.permalink }}" aria-label="Read {{ episode.title }}">
+      <span class="episode-art-mark" aria-hidden="true">p<span>.</span></span>
+      <span class="episode-art-number">{{ episode.date | date(format="%b %d, %Y") }} · {{ episode.extra.duration }}</span>
+      <span class="episode-art-title">{{ episode.title }}</span>
+      <span class="episode-art-guest">PERSONAL FINANCE SIMPLIFIED</span>
+      <span class="episode-art-spark" aria-hidden="true">✳</span>
+    </a>
+    <div class="archive-card-copy">
+      <div class="episode-meta"><span>EPISODE {{ episode.extra.episode }}</span><span aria-hidden="true">·</span><time datetime="{{ episode.date }}">{{ episode.date | date(format="%b %d, %Y") }}</time><span aria-hidden="true">·</span><span>{{ episode.extra.duration }}</span></div>
+      <h2><a href="{{ episode.permalink }}">{{ episode.title }}</a></h2>
+      <p>{{ episode.description }}</p>
+      <p class="episode-byline">With {{ config.extra.creator_name }}</p>
+      <a class="text-link" href="{{ episode.permalink }}">Episode details <span aria-hidden="true">↗</span></a>
+    </div>
+  </article>
+  {% else %}
+  <p class="empty-state">Episodes will appear here soon. Listen to the full show on Spotify.</p>
+  {% endfor %}
+</section>
+<section class="archive-cta">
+  <p class="eyebrow">Keep learning</p>
+  <h2>Find more episodes on Spotify.</h2>
+  <a class="button button-light" href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">Open the full show <span aria-hidden="true">↗</span></a>
+</section>
+{% endblock content %}

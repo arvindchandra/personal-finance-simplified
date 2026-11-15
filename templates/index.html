@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.extra.show_name }} — {{ config.extra.tagline }}{% endblock title %}
+
+{% block content %}
+{% set episodes = get_section(path="episodes/_index.md") %}
+{% set latest = episodes.pages | first %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Personal finance, in plain English</p>
+    <h1>Make money<br>make <span>sense.</span></h1>
+    <p class="hero-description">{{ config.extra.intro }}</p>
+    <div class="hero-actions">
+      <a class="button button-dark" href="{{ get_url(path='@/episodes/_index.md') }}">Recent episodes <span aria-hidden="true">↗</span></a>
+      <a class="text-link" href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">Listen on Spotify <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="creator-credit hero-creator">
+      <span class="creator-avatar" aria-hidden="true">I</span>
+      <span><small>Created &amp; hosted by</small><strong>{{ config.extra.creator_name }}</strong></span>
+    </div>
+    <div class="hero-social-proof">
+      <span class="hero-proof-mark" aria-hidden="true">✓</span>
+      <p>Budgeting, saving, investing & more.<br><strong>Useful advice without the jargon.</strong></p>
+    </div>
+  </div>
+  <div class="hero-art">
+    <img src="{{ config.extra.spotify_cover_url }}" alt="Personal Finance Simplified podcast cover art" width="300" height="300">
+  </div>
+  <span class="hero-index" aria-hidden="true">PFS / MONEY, MADE CLEAR</span>
+</section>
+
+<section class="latest-section section-wrap">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">From the show</p>
+      <h2>Build your money <span>know-how.</span></h2>
+    </div>
+    <a class="text-link" href="{{ get_url(path='@/episodes/_index.md') }}">Recent episodes <span aria-hidden="true">↗</span></a>
+  </div>
+  {% if latest %}
+  <article class="featured-episode">
+    <a class="episode-art episode-art-{{ latest.extra.accent | default(value='coral') }}" href="{{ latest.permalink }}" aria-label="Read {{ latest.title }}">
+      <span class="episode-art-mark" aria-hidden="true">p<span>.</span></span>
+      <span class="episode-art-number">{{ latest.date | date(format="%b %d, %Y") }} · {{ latest.extra.duration }}</span>
+      <span class="episode-art-title">{{ latest.title }}</span>
+      <span class="episode-art-guest">PERSONAL FINANCE SIMPLIFIED</span>
+      <span class="episode-art-spark" aria-hidden="true">✳</span>
+    </a>
+    <div class="featured-copy">
+      <div class="episode-meta"><span>EPISODE {{ latest.extra.episode }}</span><span aria-hidden="true">·</span><time datetime="{{ latest.date }}">{{ latest.date | date(format="%b %d, %Y") }}</time><span aria-hidden="true">·</span><span>{{ latest.extra.duration }}</span></div>
+      <h3><a href="{{ latest.permalink }}">{{ latest.title }}</a></h3>
+      <p>{{ latest.description }}</p>
+      <a class="text-link" href="{{ latest.permalink }}">Episode details <span aria-hidden="true">↗</span></a>
+    </div>
+  </article>
+  {% endif %}
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-stamp" aria-hidden="true"><span>LESS JARGON</span><strong>+</strong><span>MORE CLARITY</span></div>
+  <div class="about-copy">
+    <p class="eyebrow">About the podcast</p>
+    <h2>Made simple<br><span>by {{ config.extra.creator_name }}.</span></h2>
+    <p>Understand budgeting, saving, investing, credit cards, and building long-term wealth—with clear explanations you can put to use.</p>
+    <div class="creator-role">Creator &amp; host of {{ config.extra.show_name }}</div>
+  </div>
+  <div class="about-note">
+    <span class="note-quote" aria-hidden="true">“</span>
+    <p>Clear answers for the money questions that come up in real life.</p>
+    <span class="note-caption">— PERSONAL FINANCE SIMPLIFIED</span>
+  </div>
+</section>
+
+<section class="listen-section section-wrap">
+  <div>
+    <p class="eyebrow">Listen to the show</p>
+    <h2>Money talk, <span>made simple.</span></h2>
+    <p class="listen-description">Listen on Spotify or Apple Podcasts, or browse recent episodes and find the next topic you want to understand.</p>
+    <a class="text-link" href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">Open the show on Spotify <span aria-hidden="true">↗</span></a>
+    <a class="text-link" href="{{ config.extra.apple_podcasts_url }}" target="_blank" rel="noopener noreferrer">Listen on Apple Podcasts <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="spotify-player">
+    <iframe title="Listen to Personal Finance Simplified on Spotify" src="{{ config.extra.spotify_embed_url }}" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="contact-section section-wrap" id="contact">
+  <div class="contact-intro">
+    <p class="eyebrow">Get in touch</p>
+    <h2>Have a question<br>or <span>an idea?</span></h2>
+    <p>We’d love to hear from you. Send a note to the Personal Finance Simplified team.</p>
+    <small>Your message is sent by email. Please don’t include sensitive financial information.</small>
+  </div>
+  <form class="contact-form" action="https://formsubmit.co/{{ config.extra.contact_email }}" data-ajax-action="https://formsubmit.co/ajax/{{ config.extra.contact_email }}" method="POST">
+    <input type="hidden" name="_subject" value="New message from Personal Finance Simplified">
+    <input type="hidden" name="_template" value="table">
+    <div class="form-honeypot" aria-hidden="true" hidden>
+      <label for="contact-company">Leave this field empty</label>
+      <input id="contact-company" type="text" name="_honey" tabindex="-1" autocomplete="off">
+    </div>
+    <div class="form-field">
+      <label for="contact-name">Your name</label>
+      <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+    </div>
+    <div class="form-field">
+      <label for="contact-email">Email address</label>
+      <input id="contact-email" name="_replyto" type="email" autocomplete="email" maxlength="254" required>
+    </div>
+    <div class="form-field">
+      <label for="contact-message">Your message</label>
+      <textarea id="contact-message" name="message" rows="5" maxlength="5000" required></textarea>
+    </div>
+    <div class="contact-form-actions">
+      <button class="button button-dark" type="submit">Send message <span aria-hidden="true">↗</span></button>
+      <p class="contact-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+base_url = "https://personalfinancesimplified.win"
+title = "Personal Finance Simplified"
+description = "Personal finance made easier to understand and simple to apply, with practical advice for college students, first-jobbers, and young adults."
+compile_sass = true
+build_search_index = true
+default_language = "en"
+
+[extra]
+show_name = "Personal Finance Simplified"
+creator_name = "Ishiekaa Chandrra"
+contact_email = "ish.personalfinancesimplified@gmail.com"
+tagline = "Make money make sense."
+intro = "Practical personal finance for college students, first-jobbers, and anyone figuring out their twenties. Clear explanations, useful advice, and no confusing jargon."
+spotify_url = "https://open.spotify.com/show/033NX08emmRNCpkIY294pi"
+spotify_embed_url = "https://open.spotify.com/embed/show/033NX08emmRNCpkIY294pi?utm_source=generator"
+spotify_cover_url = "https://image-cdn-ak.spotifycdn.com/image/ab67656300005f1f020fdc048df37c224fd3bef7"
+apple_podcasts_url = "https://podcasts.apple.com/us/podcast/personal-finance-simplified/id6791348103"

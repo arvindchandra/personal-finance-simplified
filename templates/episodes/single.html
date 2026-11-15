@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} — {{ config.extra.show_name }}{% endblock title %}
+{% block description %}{{ page.description }}{% endblock description %}
+
+{% block content %}
+<article class="episode-page section-wrap">
+  <a class="back-link" href="{{ get_url(path='@/episodes/_index.md') }}"><span aria-hidden="true">←</span> Recent episodes</a>
+  <header class="episode-page-header">
+    <div>
+      <p class="eyebrow">Episode {{ page.extra.episode }} <span aria-hidden="true">·</span> {{ page.extra.duration }}</p>
+      <h1>{{ page.title }}</h1>
+      <p class="episode-deck">{{ page.description }}</p>
+      <div class="creator-credit episode-creator">
+        <span class="creator-avatar" aria-hidden="true">I</span>
+        <span><small>Created &amp; hosted by</small><strong>{{ config.extra.creator_name }}</strong></span>
+      </div>
+      <div class="episode-meta"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time><span aria-hidden="true">·</span><span>{{ page.extra.duration }}</span></div>
+    </div>
+    <div class="episode-art episode-art-{{ page.extra.accent | default(value='coral') }} episode-page-art" aria-hidden="true">
+      <span class="episode-art-mark">p<span>.</span></span>
+      <span class="episode-art-number">{{ page.date | date(format="%b %d, %Y") }} · {{ page.extra.duration }}</span>
+      <span class="episode-art-title">{{ page.title }}</span>
+      <span class="episode-art-guest">PERSONAL FINANCE SIMPLIFIED</span>
+      <span class="episode-art-spark">✳</span>
+    </div>
+  </header>
+  {% if page.extra.spotify_episode_id %}
+  <div class="audio-player">
+    <p class="eyebrow">Listen to the episode</p>
+    <iframe title="Listen to {{ page.title }} on Spotify" src="https://open.spotify.com/embed/episode/{{ page.extra.spotify_episode_id }}?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+  {% elif page.extra.rss_audio_url %}
+  <div class="audio-player">
+    <p class="eyebrow">Listen to the episode</p>
+    <audio controls preload="none" src="{{ page.extra.rss_audio_url }}">
+      Your browser does not support audio playback.
+    </audio>
+  </div>
+  {% endif %}
+  <div class="episode-body">
+    <p class="eyebrow">The conversation</p>
+    <div class="prose">{{ page.content | safe }}</div>
+  </div>
+  <section class="episode-listen">
+    <p class="eyebrow">Continue listening</p>
+    <h2>Explore the full <span>show.</span></h2>
+    <a class="button button-dark" href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">More on Spotify <span aria-hidden="true">↗</span></a>
+    <a class="button button-dark" href="{{ config.extra.apple_podcasts_url }}" target="_blank" rel="noopener noreferrer">Listen on Apple Podcasts <span aria-hidden="true">↗</span></a>
+  </section>
+</article>
+{% endblock content %}

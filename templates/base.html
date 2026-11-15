@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default(value='en') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+  <meta name="theme-color" content="#f6f5ef">
+  <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock og_title %}">
+  <meta property="og:description" content="{{ config.description }}">
+  <meta property="og:image" content="{{ config.extra.spotify_cover_url }}">
+  <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+  <link rel="icon" href="{{ get_url(path='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ get_url(path='site.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="{{ get_url(path='@/_index.md') }}" aria-label="{{ config.extra.show_name }} by {{ config.extra.creator_name }} — home">
+      <span class="wordmark-icon" aria-hidden="true">p<span>.</span></span>
+      <span class="wordmark-text">
+        <span class="wordmark-title">{{ config.extra.show_name }}</span>
+        <span class="wordmark-byline">by {{ config.extra.creator_name }}</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="{{ get_url(path='@/episodes/_index.md') }}">Episodes</a>
+      <a href="{{ get_url(path='@/_index.md') }}#about">About</a>
+      <a href="{{ get_url(path='@/_index.md') }}#contact">Contact</a>
+      <a class="nav-subscribe" href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">Listen <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    {% block content %}{% endblock content %}
+  </main>
+  <footer class="site-footer">
+    <a class="wordmark footer-wordmark" href="{{ get_url(path='@/_index.md') }}">
+      <span class="wordmark-icon" aria-hidden="true">p<span>.</span></span>
+      <span>{{ config.extra.show_name }}</span>
+    </a>
+    <p>Personal finance, made practical. Created by <strong>{{ config.extra.creator_name }}</strong>.</p>
+    <div class="footer-links">
+      <a href="{{ get_url(path='@/episodes/_index.md') }}">Recent episodes</a>
+      <a href="{{ config.extra.spotify_url }}" target="_blank" rel="noopener noreferrer">Spotify <span aria-hidden="true">↗</span></a>
+      <a href="{{ config.extra.apple_podcasts_url }}" target="_blank" rel="noopener noreferrer">Apple Podcasts <span aria-hidden="true">↗</span></a>
+      <a href="{{ get_url(path='@/_index.md') }}#contact">Contact</a>
+    </div>
+    <span class="footer-copy">© {{ now() | date(format="%Y") }} {{ config.extra.show_name }}</span>
+  </footer>
+  <script src="{{ get_url(path='contact-form.js') }}" defer></script>
+</body>
+</html>
