@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,12 +22,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pages: write
       id-token: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v6.0.1
+
+      - name: Import new podcast episodes from RSS
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 scripts/sync_episodes.py
+
+      - name: Commit imported episodes
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git add content/episodes
+          if git diff --cached --quiet; then
+            echo "No new episodes to commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Add new podcast episodes from RSS"
+            git push
+          fi
 
       - name: Build Zola site and upload Pages artifact
         uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790
