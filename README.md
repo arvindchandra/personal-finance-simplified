@@ -21,9 +21,7 @@ zola build
 1. Create a GitHub repository and push this project to its `main` branch.
 2. In the repository, open **Settings → Pages** and set the build and deployment source to **GitHub Actions**.
 3. The workflow in `.github/workflows/deploy.yml` checks and builds the site on pull requests. Pushing to `main` builds and deploys it automatically.
-4. The site is configured for `https://personalfinancesimplified.win`. The `static/CNAME` file carries that domain into the published site. Point the domain's DNS to GitHub Pages and add the custom domain under **Settings → Pages** if those are not already configured.
-
-If you prefer the default `https://<OWNER>.github.io/<REPOSITORY>/` address, change `base_url` in `zola.toml` to that URL and remove `static/CNAME` before publishing.
+4. The site is configured for `https://arvindchandra.github.io/personal-finance-simplified`.
 
 ## Customize
 
